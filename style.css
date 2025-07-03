@@ -151,10 +151,19 @@ body {
     margin-bottom: 0.75rem;
 }
 
+.character-title {
+    font-size: 0.8em;         /* Makes the title smaller than the name */
+    font-weight: 400;         /* Makes it normal weight, not bold like the h2 */
+    font-style: italic;
+    color: #7a6255;           /* A slightly lighter, less prominent brown */
+    vertical-align: middle;   /* Helps align it nicely with the main name */
+}
+
 .card-story p {
     font-family: var(--font-body);
     font-size: 0.95rem;
     line-height: 1.6;
+    text-align: justify;
 }
 
 /* --- UTILITY & RESPONSIVE CLASSES --- */
