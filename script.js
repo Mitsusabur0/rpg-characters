@@ -34,8 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .filter(character => character !== null);
 
-        } catch (error)
-        {
+        } catch (error) {
             console.error("Could not fetch or parse character data:", error);
             gallery.innerHTML = `<p class="loading-message">Error: Could not load character data. Check the file path in script.js and the browser console (F12) for details.</p>`;
         }
@@ -53,33 +52,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         charactersToDisplay.forEach(character => {
-            const fullStory = character.generated_backstory;
-            const firstPeriodIndex = fullStory.indexOf('.');
+            // --- NEW, CLEAN LOGIC ---
+            // Directly access the dedicated fields. No more splitting the backstory!
+            const nameAndTitleString = character.character_name || "A Mysterious Figure";
+            const backstory = character.generated_backstory || "No lore available.";
 
-            let nameAndTitleString;
-            let backstory;
-
-            if (firstPeriodIndex !== -1) {
-                nameAndTitleString = fullStory.substring(0, firstPeriodIndex).trim();
-                backstory = fullStory.substring(firstPeriodIndex + 1).trim();
-            } else {
-                nameAndTitleString = fullStory.trim();
-                backstory = "No further lore available.";
-            }
-
-            // --- NEW LOGIC TO SPLIT NAME AND TITLE ---
+            // We still keep the logic to split the name from a title if a comma exists.
             let name;
-            let titleHTML = ''; // Default to an empty string for the title part
+            let titleHTML = '';
             const commaIndex = nameAndTitleString.indexOf(',');
 
             if (commaIndex !== -1) {
-                // A comma was found, so we have a title
                 name = nameAndTitleString.substring(0, commaIndex).trim();
                 const title = nameAndTitleString.substring(commaIndex + 1).trim();
-                // Create the HTML for the title, including the comma for display
                 titleHTML = `<span class="character-title">, ${title}</span>`;
             } else {
-                // No comma, so the whole string is the name
                 name = nameAndTitleString;
             }
             // --- END OF NEW LOGIC ---
@@ -106,9 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const searchTerm = searchInput.value.toLowerCase().trim();
 
         const filteredCharacters = allCharacters.filter(character => {
-            const fullText = character.generated_backstory.toLowerCase();
-            const caption = character.visual_caption.toLowerCase();
-            return fullText.includes(searchTerm) || caption.includes(searchTerm);
+            // --- ENHANCED SEARCH ---
+            // Now we can also search by the character's dedicated name field.
+            const name = (character.character_name || '').toLowerCase();
+            const backstory = (character.generated_backstory || '').toLowerCase();
+            const caption = (character.visual_caption || '').toLowerCase();
+            
+            return name.includes(searchTerm) || 
+                   backstory.includes(searchTerm) || 
+                   caption.includes(searchTerm);
         });
 
         renderCharacters(filteredCharacters);
