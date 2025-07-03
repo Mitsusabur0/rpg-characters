@@ -1,0 +1,177 @@
+/* --- FONT IMPORT --- */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lato:wght@400;700&display=swap');
+
+/* --- CSS VARIABLES (THEME) --- */
+:root {
+    --font-header: 'Cinzel', serif;
+    --font-body: 'Lato', sans-serif;
+    --color-text: #e0e0e0;
+    --color-text-dark: #3a2e24;
+    --color-bg-dark: #000000;
+    /* --color-gold-accent: #daa520; */
+    --color-gold-accent: #e6e6e6;
+    --color-gold-darker: #313131;
+    --card-shadow: rgba(0, 0, 0, 0.7);
+    /* -- NEW: Aspect Ratio Variable -- */
+    --image-aspect-ratio: 147.06%; /* (1 / 0.68) * 100% */
+}
+
+/* --- GLOBAL & BODY STYLES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background-color: var(--color-bg-dark);
+    background-image: url('assets/images/background.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+}
+
+/* --- HEADER & TAGLINE --- */
+.site-header {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    text-shadow: 0 0 10px #000, 0 0 20px #000;
+}
+
+.site-header h1 {
+    font-family: var(--font-header);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--color-gold-accent);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 15px var(--color-gold-darker);
+}
+
+.site-header .tagline {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    opacity: 0.9;
+    margin-top: 0.5rem;
+    letter-spacing: 1px;
+}
+
+/* --- SEARCH & CONTROLS --- */
+.controls {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+#search-input {
+    font-family: var(--font-body);
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--color-gold-darker);
+    border-radius: 5px;
+    color: var(--color-text);
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+#search-input:focus {
+    box-shadow: 0 0 15px var(--color-gold-accent);
+    border-color: var(--color-gold-accent);
+}
+
+#search-input::placeholder {
+    color: #a0a0a0;
+    font-style: italic;
+}
+
+/* --- CHARACTER GALLERY GRID --- */
+#character-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 0 2rem 4rem 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* --- CHARACTER CARD STYLING --- */
+.character-card {
+    display: flex;
+    flex-direction: column;
+    background-image: url('assets/images/parchment.jpg');
+    background-color: #f5e8d3; /* Fallback color */
+    background-size: cover;
+    color: var(--color-text-dark);
+    border: 6px solid;
+    border-image-slice: 1;
+    /* border-image-source: linear-gradient(to bottom, #a8790f, #e5c163, #a8790f); */
+    box-shadow: 0 5px 15px var(--card-shadow);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.character-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 30px var(--card-shadow);
+}
+
+/* --- NEW: Image Aspect Ratio Container --- */
+.card-image-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: var(--image-aspect-ratio); /* This sets the height relative to the width */
+    overflow: hidden;
+    border-bottom: 4px solid var(--color-gold-darker);
+}
+
+/* --- UPDATED: Image Styles --- */
+.card-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image fills the container perfectly */
+    object-position: top center;
+}
+
+.card-story {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.card-story h2 {
+    font-family: var(--font-header);
+    color: #5c4033; /* A dark brown for titles */
+    margin-bottom: 0.75rem;
+}
+
+.card-story p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* --- UTILITY & RESPONSIVE CLASSES --- */
+.loading-message, .no-results-message {
+    grid-column: 1 / -1; /* Span all columns */
+    text-align: center;
+    font-family: var(--font-header);
+    font-size: 1.5rem;
+    padding: 4rem;
+    color: var(--color-gold-accent);
+    text-shadow: 0 1px 3px #000;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    color: #aaa;
+    background: rgba(0,0,0,0.3);
+}
