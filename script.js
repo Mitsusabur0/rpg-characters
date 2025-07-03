@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     async function fetchCharacters() {
         try {
-            const response = await fetch('misc/synth_lore_dataset.jsonl');
+            const response = await fetch('synth_lore_dataset.jsonl');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
