@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 })
                 .filter(character => character !== null);
+            
+            allCharacters.reverse();
 
         } catch (error) {
             console.error("Could not fetch or parse character data:", error);
